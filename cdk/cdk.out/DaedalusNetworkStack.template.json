@@ -1,0 +1,617 @@
+{
+ "Resources": {
+  "daedalusvpc6EC2CB49": {
+   "Type": "AWS::EC2::VPC",
+   "Properties": {
+    "CidrBlock": "10.0.0.0/16",
+    "EnableDnsHostnames": true,
+    "EnableDnsSupport": true,
+    "InstanceTenancy": "default",
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/Resource"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet1Subnet960B7401": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "ap-northeast-1a",
+    "CidrBlock": "10.0.0.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "daedalus-privatesubnet"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet1/Subnet"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet1RouteTableEE2D7DB1": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet1/RouteTable"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet1RouteTableAssociation6805D957": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedalusprivatesubnetSubnet1RouteTableEE2D7DB1"
+    },
+    "SubnetId": {
+     "Ref": "daedalusvpcdaedalusprivatesubnetSubnet1Subnet960B7401"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet1/RouteTableAssociation"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet1DefaultRoute43165701": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet1NATGatewayAEA9F6F7"
+    },
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedalusprivatesubnetSubnet1RouteTableEE2D7DB1"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet1/DefaultRoute"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet2Subnet6322CE2B": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "ap-northeast-1c",
+    "CidrBlock": "10.0.1.0/24",
+    "MapPublicIpOnLaunch": false,
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "daedalus-privatesubnet"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Private"
+     },
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet2/Subnet"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet2RouteTableCAED65BD": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/internal-elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet2/RouteTable"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet2RouteTableAssociation519AA7D6": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedalusprivatesubnetSubnet2RouteTableCAED65BD"
+    },
+    "SubnetId": {
+     "Ref": "daedalusvpcdaedalusprivatesubnetSubnet2Subnet6322CE2B"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet2/RouteTableAssociation"
+   }
+  },
+  "daedalusvpcdaedalusprivatesubnetSubnet2DefaultRoute7472688E": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "NatGatewayId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet2NATGateway22AD20B1"
+    },
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedalusprivatesubnetSubnet2RouteTableCAED65BD"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-privatesubnetSubnet2/DefaultRoute"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet1Subnet7738A0EA": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "ap-northeast-1a",
+    "CidrBlock": "10.0.2.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "daedalus-publicsubnet"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1/Subnet"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet1RouteTableC20EBA23": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1/RouteTable"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet1RouteTableAssociationDDDA1891": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet1RouteTableC20EBA23"
+    },
+    "SubnetId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet1Subnet7738A0EA"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1/RouteTableAssociation"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet1DefaultRoute8FB2D09A": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "daedalusvpcIGWB0274198"
+    },
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet1RouteTableC20EBA23"
+    }
+   },
+   "DependsOn": [
+    "daedalusvpcVPCGW773E33D0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1/DefaultRoute"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet1EIP8911E886": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1/EIP"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet1NATGatewayAEA9F6F7": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "daedalusvpcdaedaluspublicsubnetSubnet1EIP8911E886",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet1Subnet7738A0EA"
+    },
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1"
+     }
+    ]
+   },
+   "DependsOn": [
+    "daedalusvpcdaedaluspublicsubnetSubnet1DefaultRoute8FB2D09A",
+    "daedalusvpcdaedaluspublicsubnetSubnet1RouteTableAssociationDDDA1891"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet1/NATGateway"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet2SubnetE0E4951F": {
+   "Type": "AWS::EC2::Subnet",
+   "Properties": {
+    "AvailabilityZone": "ap-northeast-1c",
+    "CidrBlock": "10.0.3.0/24",
+    "MapPublicIpOnLaunch": true,
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "aws-cdk:subnet-name",
+      "Value": "daedalus-publicsubnet"
+     },
+     {
+      "Key": "aws-cdk:subnet-type",
+      "Value": "Public"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2/Subnet"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet2RouteTable18ACA668": {
+   "Type": "AWS::EC2::RouteTable",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2"
+     }
+    ],
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2/RouteTable"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet2RouteTableAssociationE205B0C5": {
+   "Type": "AWS::EC2::SubnetRouteTableAssociation",
+   "Properties": {
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet2RouteTable18ACA668"
+    },
+    "SubnetId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet2SubnetE0E4951F"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2/RouteTableAssociation"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet2DefaultRouteD2EAE5A0": {
+   "Type": "AWS::EC2::Route",
+   "Properties": {
+    "DestinationCidrBlock": "0.0.0.0/0",
+    "GatewayId": {
+     "Ref": "daedalusvpcIGWB0274198"
+    },
+    "RouteTableId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet2RouteTable18ACA668"
+    }
+   },
+   "DependsOn": [
+    "daedalusvpcVPCGW773E33D0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2/DefaultRoute"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet2EIPA923BB88": {
+   "Type": "AWS::EC2::EIP",
+   "Properties": {
+    "Domain": "vpc",
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2/EIP"
+   }
+  },
+  "daedalusvpcdaedaluspublicsubnetSubnet2NATGateway22AD20B1": {
+   "Type": "AWS::EC2::NatGateway",
+   "Properties": {
+    "AllocationId": {
+     "Fn::GetAtt": [
+      "daedalusvpcdaedaluspublicsubnetSubnet2EIPA923BB88",
+      "AllocationId"
+     ]
+    },
+    "SubnetId": {
+     "Ref": "daedalusvpcdaedaluspublicsubnetSubnet2SubnetE0E4951F"
+    },
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "kubernetes.io/role/elb",
+      "Value": "1"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2"
+     }
+    ]
+   },
+   "DependsOn": [
+    "daedalusvpcdaedaluspublicsubnetSubnet2DefaultRouteD2EAE5A0",
+    "daedalusvpcdaedaluspublicsubnetSubnet2RouteTableAssociationE205B0C5"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/daedalus-publicsubnetSubnet2/NATGateway"
+   }
+  },
+  "daedalusvpcIGWB0274198": {
+   "Type": "AWS::EC2::InternetGateway",
+   "Properties": {
+    "Tags": [
+     {
+      "Key": "application",
+      "Value": "daedalus"
+     },
+     {
+      "Key": "Name",
+      "Value": "DaedalusNetworkStack/daedalus-vpc"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/IGW"
+   }
+  },
+  "daedalusvpcVPCGW773E33D0": {
+   "Type": "AWS::EC2::VPCGatewayAttachment",
+   "Properties": {
+    "InternetGatewayId": {
+     "Ref": "daedalusvpcIGWB0274198"
+    },
+    "VpcId": {
+     "Ref": "daedalusvpc6EC2CB49"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/daedalus-vpc/VPCGW"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/02OSw+CMBCEfwv3UoWoiUdCjOFiGjBcTSlrLI/W0C3EEP67xReedubLZGdCut/StccH44uy9htZ0DFDLmri0AVESMf8Lkh8VTmLCetkzxEyWyjAGS4q1RbhzIsGFr6wyBgtJEep1S9MmC0aKZYXh4TN58Tx6EoG/phdohA6F/hDbsnHReim3lpQOJEUjLadeNV/9USULoFWZtUHGxrsaOBVRkq/swplCzR93yeThoBzBQEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "DaedalusNetworkStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "ExportsOutputRefdaedalusvpc6EC2CB49A2DBA358": {
+   "Value": {
+    "Ref": "daedalusvpc6EC2CB49"
+   },
+   "Export": {
+    "Name": "DaedalusNetworkStack:ExportsOutputRefdaedalusvpc6EC2CB49A2DBA358"
+   }
+  },
+  "ExportsOutputRefdaedalusvpcdaedalusprivatesubnetSubnet1Subnet960B7401669CE4C1": {
+   "Value": {
+    "Ref": "daedalusvpcdaedalusprivatesubnetSubnet1Subnet960B7401"
+   },
+   "Export": {
+    "Name": "DaedalusNetworkStack:ExportsOutputRefdaedalusvpcdaedalusprivatesubnetSubnet1Subnet960B7401669CE4C1"
+   }
+  },
+  "ExportsOutputRefdaedalusvpcdaedalusprivatesubnetSubnet2Subnet6322CE2B8DF22DD9": {
+   "Value": {
+    "Ref": "daedalusvpcdaedalusprivatesubnetSubnet2Subnet6322CE2B"
+   },
+   "Export": {
+    "Name": "DaedalusNetworkStack:ExportsOutputRefdaedalusvpcdaedalusprivatesubnetSubnet2Subnet6322CE2B8DF22DD9"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

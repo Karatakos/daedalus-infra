@@ -1,0 +1,34 @@
+{
+  "version": "34.0.0",
+  "files": {
+    "e06bd24ec8a661f5096c9413357b1e21044c2a5c845acc8b2dc9f5919f2071fe": {
+      "source": {
+        "path": "asset.e06bd24ec8a661f5096c9413357b1e21044c2a5c845acc8b2dc9f5919f2071fe",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "869229378759-ap-northeast-1": {
+          "bucketName": "cdk-hnb659fds-assets-869229378759-ap-northeast-1",
+          "objectKey": "e06bd24ec8a661f5096c9413357b1e21044c2a5c845acc8b2dc9f5919f2071fe.zip",
+          "region": "ap-northeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::869229378759:role/cdk-hnb659fds-file-publishing-role-869229378759-ap-northeast-1"
+        }
+      }
+    },
+    "d4ea100343e2c7266e034e9495be5a175fc6f0df306505e52b761ee79ee3a095": {
+      "source": {
+        "path": "DaedalusDbStack.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "869229378759-ap-northeast-1": {
+          "bucketName": "cdk-hnb659fds-assets-869229378759-ap-northeast-1",
+          "objectKey": "d4ea100343e2c7266e034e9495be5a175fc6f0df306505e52b761ee79ee3a095.json",
+          "region": "ap-northeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::869229378759:role/cdk-hnb659fds-file-publishing-role-869229378759-ap-northeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

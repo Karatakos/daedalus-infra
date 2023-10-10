@@ -1,0 +1,20 @@
+{
+  "version": "34.0.0",
+  "files": {
+    "fa0a7657bbe49c298565daa81958fbba5cdb946eb2b51fc56dda8cb673e48f47": {
+      "source": {
+        "path": "DaedalusNetwork.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "869229378759-ap-northeast-1": {
+          "bucketName": "cdk-hnb659fds-assets-869229378759-ap-northeast-1",
+          "objectKey": "fa0a7657bbe49c298565daa81958fbba5cdb946eb2b51fc56dda8cb673e48f47.json",
+          "region": "ap-northeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::869229378759:role/cdk-hnb659fds-file-publishing-role-869229378759-ap-northeast-1"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}

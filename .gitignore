@@ -20,7 +20,7 @@ coverage
 .env
 
 # Dependency directory
-*/node_modules
+node_modules
 
 # Editors
 
@@ -29,7 +29,7 @@ coverage
 Thumbs.db
 
 # Ignore built ts files
-*/dist/**/*
+dist/**/*
 
 # ignore yarn.lock
-*/package-lock.json
+package-lock.json

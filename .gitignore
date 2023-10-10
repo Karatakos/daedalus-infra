@@ -1,4 +1,3 @@
-lib-cov
 *.seed
 *.log
 *.csv
@@ -12,8 +11,6 @@ pids
 logs
 results
 tmp
-
-# Coverage reports
 coverage
 
 # API keys and secrets

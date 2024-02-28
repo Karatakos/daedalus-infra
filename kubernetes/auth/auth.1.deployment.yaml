@@ -4,7 +4,7 @@ metadata:
   name: daedalus-auth-deployment
   namespace: daedalus-backend
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: daedalus-auth
@@ -26,7 +26,7 @@ spec:
         #      topologyKey: "kubernetes.io/hostname"
       containers:
         - name: daedalus-auth
-          image: 869229378759.dkr.ecr.ap-northeast-1.amazonaws.com/daedalus-auth-svc-img:latest
+          image: 869229378759.dkr.ecr.ap-northeast-1.amazonaws.com/daedalus-backend:daedalus-auth-latest
           # Minikube: Uncomment the below since Minikube will use local docker registry
           # imagePullPolicy: Never
           ports:

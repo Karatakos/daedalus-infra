@@ -3,5 +3,6 @@
     "ap-northeast-1a",
     "ap-northeast-1c",
     "ap-northeast-1d"
-  ]
+  ],
+  "ami:account=869229378759:filters.image-type.0=machine:filters.name.0=fck-nat-amzn2-*-arm64-ebs:filters.state.0=available:owners.0=568608671756:region=ap-northeast-1": "ami-02b8e2c2067fd714e"
 }

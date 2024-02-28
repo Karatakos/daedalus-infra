@@ -30,7 +30,19 @@ class DaedalusNetwork extends cdk.Stack {
                     cidrMask: this.publicSubnetCidrMask,
                     mapPublicIpOnLaunch: true
                 }
-            ]
+            ],
+            /*
+            *   FCK-NAT image on a single cheap instance, i.e. no HA so bne careful
+            *
+            *   TODO: Write or find a custom NatProvider that uses autoscaling
+            */
+            natGatewayProvider: new ec2.NatInstanceProvider({
+                instanceType: new ec2.InstanceType('t4g.nano'),
+                machineImage: ec2.MachineImage.lookup({
+                  name: 'fck-nat-amzn2-*-arm64-ebs',
+                  owners: ['568608671756']
+                })
+              })
         });
 
         this.privateSubnet = this.vpc.selectSubnets({subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS}).subnets[0];

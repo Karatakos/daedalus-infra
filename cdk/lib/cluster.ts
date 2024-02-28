@@ -4,6 +4,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as iam from 'aws-cdk-lib/aws-iam';
 
 import { Construct } from 'constructs';
+import { MachineImageType } from 'aws-cdk-lib/aws-ecs';
 
 class DaedalusCluster extends cdk.Stack {
   private vpc: ec2.IVpc;
@@ -21,7 +22,7 @@ class DaedalusCluster extends cdk.Stack {
 
     const eksCluster = this.provisionClusterWithCapacity();
 
-    this.provisionClusterAdmin(eksCluster);    
+    this.provisionClusterAdmin(eksCluster);       
   }
 
   private provisionClusterWithCapacity() : eks.Cluster {
@@ -29,20 +30,23 @@ class DaedalusCluster extends cdk.Stack {
       version: eks.KubernetesVersion.V1_27,
       clusterName: "daedalus-cluster",  
       defaultCapacity: 2,
+      clusterLogging: [
+        eks.ClusterLoggingTypes.AUTHENTICATOR,
+        eks.ClusterLoggingTypes.SCHEDULER
+      ],
       // https://cloudonaut.io/versus/docker-containers/ecs-cluster-auto-scaling-vs-eks-managed-node-group/
       //
       defaultCapacityType: eks.DefaultCapacityType.NODEGROUP,
-      defaultCapacityInstance: new ec2.InstanceType('t2.nano'),
+      defaultCapacityInstance: new ec2.InstanceType('t2.micro'),
       vpc: this.vpc,
       vpcSubnets: [{ subnets: this.vpc.privateSubnets }],
       outputClusterName: true,
       outputMastersRoleArn: true,
       placeClusterHandlerInVpc: true
     });
-
     /*
 
-    TODO: We HAVE to add default capacity when creating the cluster because of a CDK bug.
+    TODO: We HAy when creating the cluster because of a CDK bug.
           Until this is fixed we cannot have control of autoscaling via addNodegroupCapacity
 
           BUG: If no default capacity is provided, even if we attach capacity via 
@@ -84,6 +88,26 @@ class DaedalusCluster extends cdk.Stack {
     });
 
     albController.node.addDependency(cluster);
+
+    const patchDNS = new eks.KubernetesPatch(this, `daedalus-eks-patch-coredns`, {
+      cluster,
+      resourceNamespace: "kube-system",
+      resourceName: "deployment/coredns",
+      applyPatch: { spec: { replicas: 1 } },
+      restorePatch: { spec: { replicas: 1 } }
+    })
+
+    const patchALB = new eks.KubernetesPatch(this, `daedalus-eks-patch-alb`, {
+      cluster,
+      resourceNamespace: "kube-system",
+      resourceName: "deployment/aws-load-balancer-controller",
+      applyPatch: { spec: { replicas: 1 } },
+      restorePatch: { spec: { replicas: 1 } }
+    })
+
+    // Need to wait for controller deploymeent before scaling back!
+    //
+    patchALB.node.addDependency(albController);
 
     cdk.Tags.of(cluster).add("application", "daedalus");
     //cdk.Tags.of(nodeGroup).add("application", "daedalus");
